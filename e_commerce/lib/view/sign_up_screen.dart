@@ -216,7 +216,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             builder: (context, value, child) => value.isLoading
                                 ? const Center(
                                     child: SpinKitFadingCircle(
-                                      color: AppColors.deepPurple,
+                                      color: AppColors.white,
                                     ),
                                   )
                                 : Text(context.localizations!.signup)),

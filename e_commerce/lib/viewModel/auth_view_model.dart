@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/firebase/notifications-services/firebase_notification.dart';
 import 'package:e_commerce/model/login_model.dart';
 import 'package:e_commerce/repository/authRepository.dart';
 import 'package:e_commerce/resources/app_colors.dart';
@@ -10,6 +12,8 @@ import 'package:flutter/material.dart';
 class AuthViewModel with ChangeNotifier {
   final _myRepo = AuthRepository();
   final provider = UserViewModel();
+  FirebaseNotificationServices firebaseNotificationServices =
+      FirebaseNotificationServices();
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -35,7 +39,12 @@ class AuthViewModel with ChangeNotifier {
   void getSignUp(dynamic body, BuildContext context) {
     setLoading(true);
     _myRepo.getSignUp(body).then((value) {
-      Utils.showToast(AppColors.deepPurple, Colors.white, "Login success");
+      firebaseNotificationServices.getDevicesToken().then((value) async {
+        await FirebaseFirestore.instance.collection('user').doc().set({
+          "token": value.toString(),
+        });
+      });
+      Utils.showToast(AppColors.deepPurple, Colors.white, "Account created successfully");
       Navigator.pushNamed(context, RouteName.loginScreen);
 
       setLoading(false);

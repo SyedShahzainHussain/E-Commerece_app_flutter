@@ -52,6 +52,10 @@ dependencies:
   firebase_core: ^2.21.0
   firebase_auth:
   connectivity_plus: 
+  flutter_local_notifications: ^16.1.0
+  firebase_messaging: ^14.7.4
+  app_settings: 
+  cloud_firestore: ^4.13.0
   flutter_localizations:
     sdk: flutter
 dev_dependencies:

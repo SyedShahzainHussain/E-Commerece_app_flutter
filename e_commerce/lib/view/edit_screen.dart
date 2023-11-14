@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/extension/mediaQuery/media_query.dart';
 import 'package:e_commerce/extension/sizedBox_height/sizedbox.dart';
+import 'package:e_commerce/firebase/notifications-services/firebase_notification.dart';
 import 'package:e_commerce/provider/product.dart';
 import 'package:e_commerce/provider/products.dart';
 import 'package:e_commerce/resources/app_colors.dart';
@@ -7,19 +11,23 @@ import 'package:e_commerce/utils/utils..dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:http/http.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class EditScreen extends StatefulWidget {
   String? id;
-  EditScreen({super.key, this.id});
+  BuildContext? context;
+  EditScreen({super.key, this.id, this.context});
 
   @override
   State<EditScreen> createState() => _EditScreenState();
 }
 
 class _EditScreenState extends State<EditScreen> {
+  FirebaseNotificationServices firebaseNotificationServices =
+      FirebaseNotificationServices();
   final _titleNode = FocusNode();
   final _amountNode = FocusNode();
   final _descriptionNode = FocusNode();
@@ -47,7 +55,7 @@ class _EditScreenState extends State<EditScreen> {
     'imageUrl': '',
   };
   bool _isint = true;
-
+  String? deviceToken;
   @override
   void didChangeDependencies() {
     if (_isint) {
@@ -105,8 +113,33 @@ class _EditScreenState extends State<EditScreen> {
     } else {
       // !addProducts
       try {
-        await context.read<Products>().addProduct(editedProduct).then((value) {
-          context.read<Products>().setLoading(false);
+        await context
+            .read<Products>()
+            .addProduct(editedProduct)
+            .then((value) async {
+          final datas =
+              await FirebaseFirestore.instance.collection('user').get();
+          for (var element in datas.docs) {
+            deviceToken = element['token'];
+          }
+          final data = {
+            'to': deviceToken,
+            'notification': {
+              'title': 'E-Commerce',
+              'body': 'Products Added',
+              'sound': 'android_app_src_main_res_raw_jetsons_doorbell',
+              'image':editedProduct.image
+            },
+          };
+          await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+              body: jsonEncode(data),
+              headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization':
+                    'key=AAAAu1OOfrU:APA91bGMeERdHxCvMW-HNIAf5Aiv78NOCx4QgGAP_ahccjfGLwWMN84-9372bBtpDe2BG9CF01mxa0nqtqEKD63Bt1PN7tC-NQJOkvudf4Ov7raUDDATBCjmIr8LHCHCzh-H2ALfylZO'
+              }).then((value) {
+            context.read<Products>().setLoading(false);
+          });
         });
       } catch (e) {
         // ignore: use_build_context_synchronously
@@ -121,8 +154,10 @@ class _EditScreenState extends State<EditScreen> {
     Navigator.pop(context);
   }
 
+  final _controller = DraggableScrollableController();
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.platformBrightnessOf(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Products'),
@@ -255,7 +290,9 @@ class _EditScreenState extends State<EditScreen> {
                       height: context.screenHeight * .15,
                       decoration: BoxDecoration(
                           border: Border.all(
-                        color: Colors.black,
+                        color: brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
                         width: 2,
                       )),
                       child: imageUrl.text.isEmpty
@@ -292,7 +329,49 @@ class _EditScreenState extends State<EditScreen> {
                       ),
                     ),
                   ],
-                )
+                ),
+                // Builder(builder: (BuildContext scaffoldContext) {
+                //   return IconButton.filledTonal(
+                //       onPressed: () {
+                //         showModalBottomSheet(
+                //           context: scaffoldContext,
+                //           backgroundColor: brightness == Brightness.dark
+                //               ? Colors.white
+                //               : Colors.black,
+                //           builder: (context) => SizedBox(
+                //             child: Wrap(
+                //               children: [
+                //                 ListTile(
+                //                     leading:  Icon(Icons.camera_alt,color:  brightness == Brightness.dark
+                //                             ? Colors.black
+                //                             : Colors.white,),
+                //                     title: Text(
+                //                       'Camera',
+                //                       style: TextStyle(
+                //                         color: brightness == Brightness.dark
+                //                             ? Colors.black
+                //                             : Colors.white,
+                //                       ),
+                //                     ),
+                //                     onTap: () => {}),
+                //                 ListTile(
+                //                   leading:  Icon(Icons.image,color:  brightness == Brightness.dark
+                //                             ? Colors.black
+                //                             : Colors.white,),
+                //                   title:  Text('Gallery',style: TextStyle(
+                //                         color: brightness == Brightness.dark
+                //                             ? Colors.black
+                //                             : Colors.white,
+                //                       ),),
+                //                   onTap: () => {},
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //         );
+                //       },
+                //       icon: const Icon(Icons.camera_alt));
+                // })
               ],
             )),
           ),

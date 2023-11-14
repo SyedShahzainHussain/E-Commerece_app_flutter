@@ -121,7 +121,7 @@ class Products with ChangeNotifier {
     final productIndex = _products.indexWhere((element) => element.id == id);
 
     if (productIndex >= 0) {
-     await http.patch(
+      await http.patch(
         Uri.parse('${AppUrl.baseUrl}/products/$id.json'),
         body: jsonEncode(
           newProduct.toJson(),
@@ -136,8 +136,10 @@ class Products with ChangeNotifier {
       }
     }
   }
+  //! deleted product
 
-  void deleteProducts(String id) {
+  void deleteProducts(String id) async {
+    await http.delete(Uri.parse('${AppUrl.baseUrl}/products/$id.json'));
     _products.removeWhere((element) => element.id == id);
     notifyListeners();
   }

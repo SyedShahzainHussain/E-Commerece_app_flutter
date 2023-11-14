@@ -1,5 +1,8 @@
+
+
 import 'package:e_commerce/extension/language/language.dart';
 import 'package:e_commerce/extension/mediaQuery/media_query.dart';
+
 import 'package:e_commerce/resources/app_colors.dart';
 import 'package:e_commerce/utils/routes/route_name.dart';
 import 'package:e_commerce/viewModel/auth_view_model.dart';
@@ -40,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     context.read<AuthViewModel>().login(data, context);
   }
+
 
   @override
   void dispose() {
@@ -125,8 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: FilledButton(
-                        onPressed: () {
+                        onPressed: () async {
                           addLogin();
+         
+         
                         },
                         child: Consumer<AuthViewModel>(
                             builder: (context, value, child) => value.isLoading2

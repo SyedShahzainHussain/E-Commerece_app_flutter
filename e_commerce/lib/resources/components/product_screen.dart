@@ -1,8 +1,8 @@
 import 'package:e_commerce/provider/cart.dart';
 import 'package:e_commerce/provider/product.dart';
 import 'package:e_commerce/resources/app_colors.dart';
-import 'package:e_commerce/utils/routes/route_name.dart';
 import 'package:e_commerce/utils/utils..dart';
+import 'package:e_commerce/view/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,8 +45,25 @@ class ProductScreen extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, RouteName.detailScreen,
-                arguments: provider.id);
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      DetailScreen(id: provider.id!),
+                  reverseTransitionDuration: const  Duration(milliseconds: 500),
+                  transitionDuration:  const Duration(milliseconds: 500),
+                  transitionsBuilder:
+                      (context, animations, secondaryAnimation, child) {
+                    const begin = Offset(0.0, 1.0);
+                    const end = Offset.zero;
+                    Animation<Offset> animation =
+                        Tween(begin: begin, end: end).animate(animations);
+                    return SlideTransition(
+                      position: animation,
+                      child: child,
+                    );
+                  },
+                ));
           },
           child: Image.network(
             provider.image.toString(),

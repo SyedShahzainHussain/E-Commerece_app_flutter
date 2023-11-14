@@ -15,22 +15,26 @@ class AdminDrawerComponents extends StatelessWidget {
           ListTile(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, RouteName.productOverviewScreen);
-              },
-              title: const Text(
-                "Add Edit Products",
-              ),
-              leading: const Icon(Icons.edit)),
-          const Divider(),
-          ListTile(
-              onTap: () {
-                Navigator.pop(context);
                 Navigator.pushNamed(context, RouteName.orderScreen);
               },
               title: const Text(
                 "Orders",
               ),
               leading: const FaIcon(FontAwesomeIcons.basketShopping)),
+          const Divider(),
+          ListTile(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  RouteName.mainScreen,
+                  (route) => false,
+                );
+              },
+              title: const Text(
+                "Go To Home",
+              ),
+              leading: const Icon(Icons.edit)),
           const Divider(),
           ListTile(
               onTap: () async {

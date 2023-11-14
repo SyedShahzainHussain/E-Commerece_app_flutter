@@ -34,8 +34,16 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
     isLogin = sp.getBool('isLogin') ?? false;
   }
 
+  addEmailToSharedPreferences() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+
+    sp.setString("email", "Admin@gmail.com");
+    sp.setString("password", "admin12345");
+  }
+
   @override
   void initState() {
+    addEmailToSharedPreferences();
     getEmailPasswordFromSharedPreference()
         .then((value) => chechUserIsLoginOrNot(isLogin!));
 
@@ -77,7 +85,7 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
             _isLoading = false;
           });
           Navigator.pushNamedAndRemoveUntil(
-              context, RouteName.adminScreen, (route) => false);
+              context, RouteName.editScreen, (route) => false);
         },
       );
     } else {

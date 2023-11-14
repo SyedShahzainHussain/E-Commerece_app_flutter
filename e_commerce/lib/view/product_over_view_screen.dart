@@ -1,6 +1,7 @@
 // import 'dart:io';
 
 import 'package:e_commerce/admin/drawer_components.dart';
+import 'package:e_commerce/extension/language/language.dart';
 import 'package:e_commerce/provider/products.dart';
 import 'package:e_commerce/resources/app_colors.dart';
 import 'package:e_commerce/utils/routes/route_name.dart';
@@ -15,21 +16,25 @@ class ProductOverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final prdouct = context.watch<Products>();
     return Scaffold(
-      drawer:const  AdminDrawerComponents(),
+      drawer: const AdminDrawerComponents(),
       appBar: AppBar(
         title: const Text("Product Overview"),
         actions: [
           IconButton.filledTonal(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EditScreen(
+                              context: context,
+                            )));
               },
               icon: const Icon(Icons.add))
         ],
       ),
       body: prdouct.getProduct.isEmpty
-          ? const Center(
-              child: Text('No Products!'),
+          ? Center(
+              child: Text(context.localizations!.noProducts),
             )
           : RefreshIndicator(
               onRefresh: () => prdouct.getProducts(),
@@ -54,11 +59,33 @@ class ProductOverviewScreen extends StatelessWidget {
                                 },
                                 icon: const Icon(
                                   Icons.edit,
-                                  color: AppColors.deepPurple,
+                                  color: Colors.black,
                                 )),
                             IconButton(
                                 onPressed: () {
-                                  prdouct.deleteProducts(data.id!);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            content:
+                                                const Text("Are You Sure?"),
+                                            actions: [
+                                              FilledButton.tonal(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop(true);
+
+                                                  },
+                                                  child: const Text('Yes')),
+                                              FilledButton.tonal(
+                                                  onPressed: () {
+                                                  Navigator.of(context).pop(false);
+                                                  },
+                                                  child:const  Text('No')),
+                                            ],
+                                          )).then((value) {
+                                    if (value == true) {
+                                      prdouct.deleteProducts(data.id!);
+                                    }
+                                  });
                                 },
                                 icon: const Icon(Icons.delete,
                                     color: AppColors.redColor)),
