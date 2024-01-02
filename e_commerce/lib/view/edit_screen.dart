@@ -128,7 +128,7 @@ class _EditScreenState extends State<EditScreen> {
               'title': 'E-Commerce',
               'body': 'Products Added',
               'sound': 'android_app_src_main_res_raw_jetsons_doorbell',
-              'image':editedProduct.image
+              'image': editedProduct.image
             },
           };
           await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),

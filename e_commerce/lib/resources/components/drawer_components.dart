@@ -5,6 +5,7 @@ import 'package:e_commerce/repository/google/google_authentication.dart';
 import 'package:e_commerce/resources/app_colors.dart';
 import 'package:e_commerce/utils/routes/route_name.dart';
 import 'package:e_commerce/viewModel/user_view_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -60,9 +61,12 @@ class MyDrawer extends StatelessWidget {
                   Navigator.pushNamedAndRemoveUntil(
                       context, RouteName.splashScreen, (route) => false);
                 } else {
-                  context.read<UserViewModel>().remove().then((value) {
+                  await FirebaseAuth.instance.signOut().then((value)async {
+
+                  await context.read<UserViewModel>().remove().then((value) {
                     Navigator.pushNamedAndRemoveUntil(
                         context, RouteName.splashScreen, (route) => false);
+                  });
                   });
                 }
               },

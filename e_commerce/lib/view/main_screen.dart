@@ -30,11 +30,7 @@ class _MainScreenState extends State<MainScreen> {
 
     _fetchData = Provider.of<Products>(context, listen: false).getProducts();
     firebaseNotificationServices.requestNotifiactionService();
-    firebaseNotificationServices.getDevicesToken().then((value) {
-      if (kDebugMode) {
-        print(value);
-      }
-    });
+    // firebaseNotificationServices.getDevicesToken().then((value) {});
     firebaseNotificationServices.FirebaseInIt(context);
   }
 
@@ -57,8 +53,9 @@ class _MainScreenState extends State<MainScreen> {
                 child: IconButton(
                     onPressed: () {
                       Navigator.of(context).push(PageRouteBuilder(
-                         reverseTransitionDuration: const  Duration(milliseconds: 500),
-                  transitionDuration:  const Duration(milliseconds: 500),
+                        reverseTransitionDuration:
+                            const Duration(milliseconds: 500),
+                        transitionDuration: const Duration(milliseconds: 500),
                         pageBuilder: (context, animation, secondaryAnimation) =>
                             const CartScreen(),
                         transitionsBuilder:
@@ -89,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: SpinKitFadingCircle(color: AppColors.deepPurple),
               );
             } else if (context.read<Products>().getProduct.isEmpty) {
-              return Center(child:   Text(context.localizations!.noProducts));
+              return Center(child: Text(context.localizations!.noProducts));
             } else if (value.hasError) {
               return Center(
                 child: Text('Error: ${value.error}'),

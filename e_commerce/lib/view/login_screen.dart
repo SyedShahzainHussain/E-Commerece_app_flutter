@@ -1,5 +1,3 @@
-
-
 import 'package:e_commerce/extension/language/language.dart';
 import 'package:e_commerce/extension/mediaQuery/media_query.dart';
 
@@ -39,11 +37,12 @@ class _LoginScreenState extends State<LoginScreen> {
     };
     SharedPreferences sp = await SharedPreferences.getInstance();
     await sp.setString(
-        "userpassword", _passwordController.text.trim()..replaceAll(" ", ""));
+      "userpassword",
+      _passwordController.text.trim()..replaceAll(" ", ""),
+    );
 
     context.read<AuthViewModel>().login(data, context);
   }
-
 
   @override
   void dispose() {
@@ -90,9 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                     controller: _emailController,
-                    decoration:  InputDecoration(
-                        labelText:context.localizations!.youremail ,
-                        labelStyle: const  TextStyle(color: AppColors.greyColor)),
+                    decoration: InputDecoration(
+                        labelText: context.localizations!.youremail,
+                        labelStyle:
+                            const TextStyle(color: AppColors.greyColor)),
                   ),
                   ValueListenableBuilder(
                     valueListenable: _obsecure,
@@ -102,7 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onFieldSubmitted: (value) => addLogin(),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return context.localizations!.pleaseenteraconfirmpassword;
+                          return context
+                              .localizations!.pleaseenteraconfirmpassword;
                         }
 
                         return null;
@@ -131,8 +132,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: FilledButton(
                         onPressed: () async {
                           addLogin();
-         
-         
                         },
                         child: Consumer<AuthViewModel>(
                             builder: (context, value, child) => value.isLoading2
@@ -146,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: context.screenHeight * .01,
                   ),
-                   Center(child: Text(context.localizations!.or)),
+                  Center(child: Text(context.localizations!.or)),
                   SizedBox(
                     height: context.screenHeight * .01,
                   ),
@@ -174,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Text(context.localizations!.backto,
+                      Text(context.localizations!.backto,
                           style: const TextStyle(
                             color: AppColors.greyColor,
                           )),
@@ -183,8 +182,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushNamedAndRemoveUntil(context,
                               RouteName.signUpScreen, (route) => false);
                         },
-                        child:  Text(context.localizations!.signup ,
-                            style: const  TextStyle(
+                        child: Text(context.localizations!.signup,
+                            style: const TextStyle(
                               color: AppColors.deepPurple,
                             )),
                       ),

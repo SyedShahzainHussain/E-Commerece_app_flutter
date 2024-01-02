@@ -26,9 +26,7 @@ class FirebaseNotificationServices {
     //* for android
     if (notificationSettings.authorizationStatus ==
         AuthorizationStatus.authorized) {
-      if (kDebugMode) {
-        print("Granted");
-      }
+     
     }
     //* for ios
     else if (notificationSettings.authorizationStatus ==

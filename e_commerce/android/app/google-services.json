@@ -1,42 +1,35 @@
 {
   "project_info": {
-    "project_number": "804560731829",
-    "firebase_url": "https://fir-b1e27-default-rtdb.firebaseio.com",
-    "project_id": "fir-b1e27",
-    "storage_bucket": "fir-b1e27.appspot.com"
+    "project_number": "1042816162198",
+    "firebase_url": "https://flutter-shop-app-d9399-default-rtdb.firebaseio.com",
+    "project_id": "flutter-shop-app-d9399",
+    "storage_bucket": "flutter-shop-app-d9399.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:804560731829:android:379e7a2b8d6b2339dec8fc",
+        "mobilesdk_app_id": "1:1042816162198:android:0395a952fee9dc4b8825b7",
         "android_client_info": {
-          "package_name": "com.example.e_commerce"
+          "package_name": "com.example.chat_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "804560731829-pvi0948u33bdhe7r8aknqhivvuadevfe.apps.googleusercontent.com",
+          "client_id": "1042816162198-1chh6vj3lftulj3l35buv2bhnrotjcrd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBvFSNEPDCwm6GB6Xq2V_4weCaTvnR2d2k"
+          "current_key": "AIzaSyCpymb4KiK311dvNheceDENiJ2LIElG1Qc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "804560731829-pvi0948u33bdhe7r8aknqhivvuadevfe.apps.googleusercontent.com",
+              "client_id": "1042816162198-1chh6vj3lftulj3l35buv2bhnrotjcrd.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "804560731829-n3mvnm4381p7bc023g48udm0nrelln6u.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.testApplication"
-              }
             }
           ]
         }
@@ -44,43 +37,36 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:804560731829:android:8bfb4fe90eba0bbcdec8fc",
+        "mobilesdk_app_id": "1:1042816162198:android:603ed69d4065af248825b7",
         "android_client_info": {
-          "package_name": "com.example.test_application"
+          "package_name": "com.example.e_commerce"
         }
       },
       "oauth_client": [
         {
-          "client_id": "804560731829-1gjj1c6p7ih95fmvgbsh1thm455o0337.apps.googleusercontent.com",
+          "client_id": "1042816162198-mt4vf68rclvgl2h9jitldlfnptfj5cs2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.test_application",
-            "certificate_hash": "2b5690ef7f23cc8ee5176f4bbddb8068b39ddc33"
+            "package_name": "com.example.e_commerce",
+            "certificate_hash": "cf75b6e6ed6afaa9f356f8510c86614b2d8de15d"
           }
         },
         {
-          "client_id": "804560731829-pvi0948u33bdhe7r8aknqhivvuadevfe.apps.googleusercontent.com",
+          "client_id": "1042816162198-1chh6vj3lftulj3l35buv2bhnrotjcrd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBvFSNEPDCwm6GB6Xq2V_4weCaTvnR2d2k"
+          "current_key": "AIzaSyCpymb4KiK311dvNheceDENiJ2LIElG1Qc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "804560731829-pvi0948u33bdhe7r8aknqhivvuadevfe.apps.googleusercontent.com",
+              "client_id": "1042816162198-1chh6vj3lftulj3l35buv2bhnrotjcrd.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "804560731829-n3mvnm4381p7bc023g48udm0nrelln6u.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.testApplication"
-              }
             }
           ]
         }

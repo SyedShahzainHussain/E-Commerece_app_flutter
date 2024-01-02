@@ -45,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text(context.localizations!.profile),
+        title: Text(context.localizations!.profile),
       ),
       body: ModalProgressHUD(
         inAsyncCall: loginData.isLoading,
@@ -64,44 +64,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             CircleAvatar(
                               radius: context.screenWidth * .15,
-                              backgroundImage: NetworkImage(
-                                  value.loginModel.user!.profilePhoto!),
+                              backgroundImage:  const NetworkImage(
+                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtZvNXJYdl0uUzKj7gqgpe_OxRtw2FFvH21k0Pyq0Q3Eh8X49bKtZlLjajfU2erdn7BQA&usqp=CAU"),
                             ),
-                            Positioned(
-                              bottom: -10,
-                              right: 0,
-                              child: IconButton(
-                                onPressed: () async {
-                                  XFile? image = await ImagePicker().pickImage(
-                                    source: ImageSource.gallery,
-                                  );
+                            // Positioned(
+                            //   bottom: -10,
+                            //   right: 0,
+                            //   child: IconButton(
+                            //     onPressed: () async {
+                            //       XFile? image = await ImagePicker().pickImage(
+                            //         source: ImageSource.gallery,
+                            //       );
 
-                                  if (image != null) {
-                                    final data = {
-                                      "email": value.loginModel.user!.email,
-                                      "password":
-                                          value.loginModel.user!.password
-                                    };
-                                    // ignore: use_build_context_synchronously
-                                    await uploadImage(
-                                      File(image.path),
-                                      value.loginModel.user!.token!,
-                                      context,
-                                      data,
-                                      value,
-                                    );
-                                  }
-                                },
-                                icon: const Icon(
-                                  Icons.camera_alt,
-                                  color: AppColors.deepPurple,
-                                ),
-                              ),
-                            ),
+                            //       if (image != null) {
+                            //         final data = {
+                            //           "email": value.loginModel.user!.email,
+                            //           "password":
+                            //               value.loginModel.user!.password
+                            //         };
+                            //         // ignore: use_build_context_synchronously
+                            //         await uploadImage(
+                            //           File(image.path),
+                            //           value.loginModel.user!.token!,
+                            //           context,
+                            //           data,
+                            //           value,
+                            //         );
+                            //       }
+                            //     },
+                            //     icon: const Icon(
+                            //       Icons.camera_alt,
+                            //       color: AppColors.deepPurple,
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                         Card(
-                          
                           // color: AppColors.greyColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0)),

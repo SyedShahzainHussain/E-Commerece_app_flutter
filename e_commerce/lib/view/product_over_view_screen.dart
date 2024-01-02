@@ -20,7 +20,7 @@ class ProductOverviewScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Product Overview"),
         actions: [
-          IconButton.filledTonal(
+          IconButton(
               onPressed: () {
                 Navigator.push(
                     context,
@@ -71,15 +71,16 @@ class ProductOverviewScreen extends StatelessWidget {
                                             actions: [
                                               FilledButton.tonal(
                                                   onPressed: () {
-                                                    Navigator.of(context).pop(true);
-
+                                                    Navigator.of(context)
+                                                        .pop(true);
                                                   },
                                                   child: const Text('Yes')),
                                               FilledButton.tonal(
                                                   onPressed: () {
-                                                  Navigator.of(context).pop(false);
+                                                    Navigator.of(context)
+                                                        .pop(false);
                                                   },
-                                                  child:const  Text('No')),
+                                                  child: const Text('No')),
                                             ],
                                           )).then((value) {
                                     if (value == true) {

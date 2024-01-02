@@ -28,7 +28,7 @@ class Product with ChangeNotifier {
     title = json['title'];
     description = json['description'];
     price = json['price'];
-    image = json['image'];
+    image = json['imageUrl'];
     isFavorite = json['isFavorite'];
   }
 
@@ -37,7 +37,7 @@ class Product with ChangeNotifier {
     json['title'] = title;
     json['description'] = description;
     json['price'] = price;
-    json['image'] = image;
+    json['imageUrl'] = image;
     json['isFavorite'] = isFavorite;
     return json;
   }

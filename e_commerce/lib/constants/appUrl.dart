@@ -1,5 +1,5 @@
 class AppUrl {
-  static const baseUrl = 'https://fir-b1e27-default-rtdb.firebaseio.com';
+  static const baseUrl = 'https://flutter-shop-app-d9399-default-rtdb.firebaseio.com/';
   static const addProduct = '$baseUrl/products.json';
   static const getProduct = '$baseUrl/products.json';
   static const editProduct = '$baseUrl/';

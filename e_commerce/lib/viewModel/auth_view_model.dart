@@ -6,6 +6,7 @@ import 'package:e_commerce/resources/app_colors.dart';
 import 'package:e_commerce/utils/routes/route_name.dart';
 import 'package:e_commerce/utils/utils..dart';
 import 'package:e_commerce/viewModel/user_view_model.dart';
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -38,13 +39,20 @@ class AuthViewModel with ChangeNotifier {
 
   void getSignUp(dynamic body, BuildContext context) {
     setLoading(true);
-    _myRepo.getSignUp(body).then((value) {
-      firebaseNotificationServices.getDevicesToken().then((value) async {
-        await FirebaseFirestore.instance.collection('user').doc().set({
-          "token": value.toString(),
-        });
-      });
-      Utils.showToast(AppColors.deepPurple, Colors.white, "Account created successfully");
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+            email: body["email"], password: body["password"])
+        .then((value) {
+      final loginmodel = LoginModel(
+          user: User(
+        email: body["email"],
+        token: "",
+        organizationName: body["organizationName"],
+        profilePhoto: "",
+      ));
+      provider.saveUser(loginmodel);
+      Utils.showToast(
+          AppColors.deepPurple, Colors.white, "Account created successfully");
       Navigator.pushNamed(context, RouteName.loginScreen);
 
       setLoading(false);
@@ -61,17 +69,16 @@ class AuthViewModel with ChangeNotifier {
       return;
     }
     setLoading2(true);
-    _myRepo.getLogin(data).then((value) async {
-      final token = value['user']['token'];
-      final name = value['user']['organizationName'];
-      final email = value['user']['email'];
-      final profile = value['user']['profilePhoto'];
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: data["email"], password: data["password"])
+        .then((value) async {
       final loginmodel = LoginModel(
           user: User(
-        email: email,
-        token: token,
-        organizationName: name,
-        profilePhoto: profile,
+        email: data["email"],
+        token: "",
+        organizationName: data["organizationName"],
+        profilePhoto: "",
       ));
       provider.saveUser(loginmodel);
       Utils.showToast(AppColors.deepPurple, Colors.white, "Login successfully");

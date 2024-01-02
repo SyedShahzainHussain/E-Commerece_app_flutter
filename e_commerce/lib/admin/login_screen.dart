@@ -85,7 +85,10 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
             _isLoading = false;
           });
           Navigator.pushNamedAndRemoveUntil(
-              context, RouteName.editScreen, (route) => false);
+            context,
+            RouteName.productOverviewScreen,
+            (route) => false,
+          );
         },
       );
     } else {

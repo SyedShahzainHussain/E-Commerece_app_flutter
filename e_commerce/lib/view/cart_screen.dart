@@ -17,7 +17,7 @@ class CartScreen extends StatelessWidget {
     final order = context.read<OrderProvider>();
     return Scaffold(
       appBar: AppBar(
-        title:  Text(context.localizations!.cart),
+        title: Text(context.localizations!.cart),
       ),
       body: Column(children: [
         Padding(
@@ -33,61 +33,74 @@ class CartScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Text('${context.localizations!.totalAmount}:'),
+                      Text('${context.localizations!.totalAmount}:'),
                       FittedBox(
                           child:
                               Text(' ${cart.totalAmount.toStringAsFixed(2)}')),
                     ],
                   ),
                   const Spacer(),
-                  Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: BoxDecoration(
-                          color: Colors.deepPurpleAccent.shade400,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: FittedBox(
-                        child: Text(
-                          '${context.localizations!.quantity}:- ${cart.cartlength.toString()}',
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      )),
                   Expanded(
-                    child: FilledButton.tonal(
-                        onPressed: data.totalAmount <= 0
-                            ? null
-                            : () async {
-                                data.setLoading(true);
-                                await order
-                                    .addOrder(cart.getCart.values.toList(),
-                                        cart.totalAmount)
-                                    .then((value) {
-                                  data.setLoading(false);
-                                });
-                                cart.clearCart();
-                              },
+                    child: Container(
+                        margin: const EdgeInsets.only(right: 5),
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            color: Colors.deepPurpleAccent.shade400,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: FittedBox(
+                          child: Text(
+                            '${context.localizations!.quantity}:- ${cart.cartlength.toString()}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )),
+                  ),
+                  Expanded(
+                      child: GestureDetector(
+                    onTap: data.totalAmount <= 0
+                        ? null
+                        : () async {
+                            data.setLoading(true);
+                            await order
+                                .addOrder(cart.getCart.values.toList(),
+                                    cart.totalAmount)
+                                .then((value) {
+                              data.setLoading(false);
+                            });
+                            cart.clearCart();
+                          },
+                    child: Container(
+                        margin: const EdgeInsets.only(right: 5),
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            color: Colors.deepPurpleAccent.shade400,
+                            borderRadius: BorderRadius.circular(50)),
                         child: data.isLoading
-                            ?  Text(
-                                context.localizations!.sendOrder,
-                                overflow: TextOverflow.ellipsis,
-                              )
-                            :  Text(
+                            ? Text(context.localizations!.sendOrder,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis))
+                            : Text(
                                 context.localizations!.orderNow,
-                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis),
                               )),
-                  )
+                  )),
                 ],
               ),
             ),
           )),
         ),
         data.getCart.isEmpty
-            ?  Center(child: Text(context.localizations!.nocart))
-            :  Center(
+            ? Center(child: Text(context.localizations!.nocart))
+            : Center(
                 child: Text(
                 context.localizations!.products,
-                style:const  TextStyle(fontSize: 17),
+                style: const TextStyle(fontSize: 17),
               )),
         Consumer<CartProvider>(
           builder: (context, value, child) => Expanded(
@@ -139,12 +152,18 @@ class CartScreen extends StatelessWidget {
                                     AppColors.deepPurple.withOpacity(0.2),
                                 label: const FaIcon(
                                   FontAwesomeIcons.plus,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   size: 14,
                                 ),
                               ),
                             ),
+                            const SizedBox(
+                              width: 5,
+                            ),
                             FittedBox(child: Text(data.quantity.toString())),
+                            const SizedBox(
+                              width: 5,
+                            ),
                             GestureDetector(
                               onTap: () {
                                 value.removeSingleCart(
@@ -154,7 +173,7 @@ class CartScreen extends StatelessWidget {
                                 backgroundColor:
                                     AppColors.deepPurple.withOpacity(0.2),
                                 label: const FaIcon(FontAwesomeIcons.minus,
-                                    color: Colors.black, size: 14),
+                                    color: Colors.white, size: 14),
                               ),
                             ),
                           ],
